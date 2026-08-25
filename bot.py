@@ -63,6 +63,19 @@ async def on_voice_state_update(member, before, after):
                 pass
             except Exception as e:
                 print(f'Erro ao tentar apagar o canal automaticamente: {e}')
+                
+@bot.command(name="kick")
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f'👢 {member.mention} foi expulso do servidor. Motivo: {reason}')
+
+# Comando para banir (!ban @usuario Motivo)
+@bot.command(name="ban")
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, member: discord.Member, *, reason=None):
+    await member.ban(reason=reason)
+    await ctx.send(f'🔨 {member.mention} foi banido do servidor. Motivo: {reason}')
 
 token = os.getenv('DISCORD_TOKEN')
 bot.run(token)
