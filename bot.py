@@ -63,7 +63,7 @@ async def on_voice_state_update(member, before, after):
                 pass
             except Exception as e:
                 print(f'Erro ao tentar apagar o canal automaticamente: {e}')
-                
+
 @bot.command(name="kick")
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member: discord.Member, *, reason=None):
@@ -77,5 +77,28 @@ async def ban(ctx, member: discord.Member, *, reason=None):
     await member.ban(reason=reason)
     await ctx.send(f'🔨 {member.mention} foi banido do servidor. Motivo: {reason}')
 
+# Comando para apagar mensagens (!clear 10)
+@bot.command(name="clear")
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount: int):
+    # amount + 1 para apagar também a mensagem do próprio comando
+    deleted = await ctx.channel.purge(limit=amount + 1)
+    # Mostra uma mensagem temporária que some após 5 segundos
+    await ctx.send(f'🧹 {len(deleted) - 1} mensagens foram apagadas.', delete_after=5)
+
+# Comando para bloquear o canal (!lock)
+@bot.command(name="lock")
+@commands.has_permissions(manage_channels=True)
+async def lock(ctx):
+    await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
+    await ctx.send("🔒 Este canal foi bloqueado temporariamente.")
+
+# Comando para desbloquear o canal (!unlock)
+@bot.command(name="unlock")
+@commands.has_permissions(manage_channels=True)
+async def unlock(ctx):
+    await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=True)
+    await ctx.send("🔓 Canal desbloqueado. Podem voltar a falar!")
+    
 token = os.getenv('DISCORD_TOKEN')
 bot.run(token)
