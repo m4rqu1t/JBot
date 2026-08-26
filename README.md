@@ -1,4 +1,4 @@
-#  JanjaBOT
+#  JBot
 
 Um bot multifuncional para o Discord focado na moderação de servidores e no gerenciamento automático de canais de voz, totalmente containerizado com Docker. 
 
