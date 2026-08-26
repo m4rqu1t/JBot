@@ -15,8 +15,8 @@ O bot possui comandos administrativos protegidos por hierarquia de permissões:
 * `/kick @usuario [motivo]`: Expulsa um membro do servidor.
 * `/ban @usuario [motivo]`: Bane um membro do servidor.
 * `/clear [quantidade]`: Limpa mensagens de um chat em massa.
-* `/lock` e `!unlock`: Bloqueia e desbloqueia o envio de mensagens em um canal específico.
-* **Canais de Voz Dinâmicos:** /criarvoz Escuta eventos de voz para criar e limpar canais temporários automaticamente (evitando poluição visual no servidor).
+* `/lock` e `/unlock`: Bloqueia e desbloqueia o envio de mensagens em um canal específico.
+* **Canais de Voz Dinâmicos:** `/criarvoz` Escuta eventos de voz para criar e limpar canais temporários automaticamente (evitando poluição visual no servidor).
 
 ##  Como Rodar o Projeto
 
