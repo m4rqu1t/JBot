@@ -7,19 +7,21 @@ class Moderacao(commands.Cog):
         self.bot = bot
         self.warnings = {}
 
-@commands.Cog.listener()
-async def on_member_join(self, member):
-    cargo = discord.utils.get(member.guild.roles, name="Regular")
+    # EVENTO DE ENTRADA DE MEMBROS
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        cargo = discord.utils.get(member.guild.roles, name="Regular")
         
-    if cargo is not None:
-        try:
-            await member.add_roles(cargo)
-            print(f"✅ Cargo Regular atribuído a {member.display_name}")
-        except discord.Forbidden:
-            print(f"❌ Erro de hierarquia ao tentar dar cargo para {member.display_name}")
-    else:
-        print("❌ O cargo 'Regular' não foi encontrado no servidor.")
+        if cargo is not None:
+            try:
+                await member.add_roles(cargo)
+                print(f"✅ Cargo Regular atribuído a {member.display_name}")
+            except discord.Forbidden:
+                print(f"❌ Erro de hierarquia ao tentar dar cargo para {member.display_name}")
+        else:
+            print("❌ O cargo 'Regular' não foi encontrado no servidor.")
 
+    # COMANDOS
     @app_commands.command(name="kick", description="Expulsa um membro do servidor.")
     @app_commands.checks.has_permissions(kick_members=True)
     async def kick(self, interaction: discord.Interaction, member: discord.Member, reason: str = "Nenhum motivo fornecido"):
@@ -69,7 +71,7 @@ async def on_member_join(self, member):
             except discord.Forbidden:
                 await interaction.response.send_message(f"⚠️ {member.mention} atingiu 3 advertências, mas **não posso expulsá-lo** porque o cargo dele é maior ou igual ao meu!", ephemeral=True)
         else:
-            await interaction.response.send_message(f'⚠️ {member.mention} recebeu uma advertência. Motivo: {reason}\\nTotal de advertências: {total_warns}')
+            await interaction.response.send_message(f'⚠️ {member.mention} recebeu uma advertência. Motivo: {reason}\nTotal de advertências: {total_warns}')
 
     @app_commands.command(name="clear", description="Limpa uma quantidade específica de mensagens do chat.")
     @app_commands.checks.has_permissions(manage_messages=True)
