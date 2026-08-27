@@ -29,7 +29,7 @@ bot = JBot()
 async def on_ready():
     print(f'JBot online e operando! Conectado como {bot.user}')
     
-    atividade = discord.Game(name="JBot v1.0.0 | /status")
+    atividade = discord.Game(name="JBot v1.0.1 | /status")
     await bot.change_presence(status=discord.Status.online, activity=atividade)
 
 token = os.getenv('DISCORD_TOKEN')

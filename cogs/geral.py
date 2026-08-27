@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 
-VERSAO_BOT = "v1.0.0"
+VERSAO_BOT = "v1.0.1"
 
 class Geral(commands.Cog):
     def __init__(self, bot):
