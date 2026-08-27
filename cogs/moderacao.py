@@ -7,6 +7,19 @@ class Moderacao(commands.Cog):
         self.bot = bot
         self.warnings = {}
 
+@commands.Cog.listener()
+async def on_member_join(self, member):
+    cargo = discord.utils.get(member.guild.roles, name="Regular")
+        
+    if cargo is not None:
+        try:
+            await member.add_roles(cargo)
+            print(f"✅ Cargo Regular atribuído a {member.display_name}")
+        except discord.Forbidden:
+            print(f"❌ Erro de hierarquia ao tentar dar cargo para {member.display_name}")
+    else:
+        print("❌ O cargo 'Regular' não foi encontrado no servidor.")
+
     @app_commands.command(name="kick", description="Expulsa um membro do servidor.")
     @app_commands.checks.has_permissions(kick_members=True)
     async def kick(self, interaction: discord.Interaction, member: discord.Member, reason: str = "Nenhum motivo fornecido"):
